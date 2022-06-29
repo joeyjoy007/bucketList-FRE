@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   StyleSheet,
   Text,
   TextInput,
@@ -7,10 +8,12 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import { emailValidation } from '../../../helpers/helpers';
+import { loginUser } from '../../../server/apis/user';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [formState, setFormState] = useState({email: '', password: ''});
   const [errorText, setErrorText] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const setfields = (key,value) => {
     setFormState({...formState,[key]:value})
@@ -39,12 +42,18 @@ const Login = () => {
     return true
   }
 
-  const Login = (data)=>{
+  const Login = async (data)=>{
+    setLoading(true)
     if(validateFields()){
+      setLoading(true)
       try {
-        // alert("SUCCESS")
+        const response = await loginUser(data)
+        if(response.status === 1){
+          setLoading(false)
+          navigation.navigate("AllWish")
+        }
       } catch (error) {
-        // alert(error.message)
+        console.log(error)
       }
     }
     else{
@@ -78,7 +87,7 @@ const Login = () => {
       </View>
       <Text style={styles.forgotText}>Forgot password?</Text>
       <TouchableOpacity style={styles.button} onPress={()=>Login(formState)}>
-        <Text style={{fontSize: 17, fontWeight: '600'}}>Continue </Text>
+        <Text style={{fontSize: 17, fontWeight: '600'}}>{loading ?<ActivityIndicator size={"small"}/>:"Continue"} </Text>
       </TouchableOpacity>
     </View>
   );
@@ -96,6 +105,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,
+    backgroundColor:"#000000"
   },
   forgotText: {
     alignSelf: 'flex-end',

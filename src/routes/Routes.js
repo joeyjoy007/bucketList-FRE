@@ -66,6 +66,7 @@ const Routes = () => {
     <Stack.Screen name="WishView" component={WishView} /> */}
     <Stack.Screen name="Register" component={RegisterForm} />
     <Stack.Screen name="Login" component={Login} />
+    <Stack.Screen name="AllWish" component={AllWishes} />
     
   </Stack.Navigator>
   )
