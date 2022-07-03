@@ -20,10 +20,10 @@ const UserInfo = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const fetchUser = async () => {
-    const userId = await Storage.getItem('userInfo');
-    console.log(userId.user._id);
-    const i = await fetchSingleUser(userId.user._id);
-    setUser(i.payload);
+    const userInfo = await Storage.getItem('userInfo');
+    // console.log(userId.user._id);
+    // const i = await fetchSingleUser(userId.user._id);
+    setUser(userInfo.user);
     // console.log('III=>   ', i.payload);
   };
 
@@ -90,7 +90,11 @@ const UserInfo = ({navigation}) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('UserWishes')}
+            onPress={() =>
+              navigation.navigate('UserWishes', {
+                nonActiveData: nonActiveBuckets,
+              })
+            }
             style={[styles.active, {backgroundColor: '#F38B8B'}]}>
             <Text style={styles.activeWishes}>Non-Active Wishes</Text>
             <Text style={styles.activeWishesNo}>
@@ -98,9 +102,23 @@ const UserInfo = ({navigation}) => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.completeWish}>
-            <Text style={styles.activeWishes}>Completed Wish</Text>
-            <Text style={styles.activeWishesNo}>3</Text>
+          <TouchableOpacity
+            style={styles.completeWish}
+            onPress={() =>
+              navigation.navigate('UserWishes', {
+                bucketInfo: bucket,
+              })
+            }>
+            <Text style={styles.activeWishes}>In Progress</Text>
+            {/* <Text style={styles.activeWishesNo}>3</Text> */}
+            <View style={styles.progressBar}>
+              <View
+                style={[styles.progress, {backgroundColor: '#F38B8B'}]}></View>
+              <View
+                style={[styles.progress, {backgroundColor: '#736400'}]}></View>
+              <View
+                style={[styles.progress, {backgroundColor: '#38F8E5'}]}></View>
+            </View>
           </TouchableOpacity>
         </View>
       )}
@@ -151,5 +169,16 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     borderRadius: 10,
     backgroundColor: '#F3CB8B',
+  },
+  progress: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginTop: 10,
+  },
+  progressBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });

@@ -4,8 +4,8 @@ import React from 'react';
 import AllWishess from '../allWishes/TabBar';
 import Login from '../authForm/Login';
 import RegisterForm from '../authForm/RegisterForm';
-import WishIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import User from 'react-native-vector-icons/Entypo';
+import Bucket from 'react-native-vector-icons/MaterialCommunityIcons';
+import User from 'react-native-vector-icons/Feather';
 import UserInfo from '../userInfo';
 import MyActivityIndicator from '../userInfo/Activity';
 
@@ -38,7 +38,7 @@ const BottomTabBar = () => {
         name="Wish"
         options={{
           tabBarIcon: ({color, size}) => (
-            <WishIcon name="hands-pray" color={color} size={size} />
+            <Bucket name="bucket-outline" color={color} size={size} />
           ),
         }}
         component={AllWishess}

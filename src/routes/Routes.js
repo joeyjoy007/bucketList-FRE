@@ -12,6 +12,7 @@ import {loginUser} from '../server/apis/user';
 import {AuthContext} from '../context';
 import {Storage} from '../storage/Storage';
 import UserWishes from '../components/AuthForm/userInfo/userWishes';
+import ParentForm from '../components/AuthForm/parentform';
 
 const Routes = () => {
   const Stack = createNativeStackNavigator();
@@ -130,6 +131,7 @@ const Routes = () => {
           <>
             <Stack.Screen name="BottomTabBar" component={BottomTabBar} />
             <Stack.Screen name="UserWishes" component={UserWishes} />
+            <Stack.Screen name="ParentForm" component={ParentForm} />
           </>
         ) : (
           <Stack.Screen name="Auth" component={RootStackScreen} />
