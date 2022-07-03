@@ -29,12 +29,10 @@ const AllWishes = ({navigation, route}) => {
 
   const allBucket = async () => {
     try {
-      await fetchBucket()
-        .then(response => {
-          if (response.status === 1) {
-            // console.log("Response => ",response.payload)
-            setBucket(response.payload);
-          }
+      fetchBucket()
+        .then(res => {
+          // console.log('RESPOSNE =>   ', res.data.payload);
+          setBucket(res.data.payload);
         })
         .catch(err => {
           console.log(err.message);

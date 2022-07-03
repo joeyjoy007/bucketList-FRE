@@ -10,25 +10,23 @@ import User from 'react-native-vector-icons/Entypo';
 const Tab = createBottomTabNavigator();
 
 const BottomTabBar = () => {
-
-  const width = Dimensions.get("window").width
-  const height = Dimensions.get("window").height
+  const width = Dimensions.get('window').width;
+  const height = Dimensions.get('window').height;
 
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-          tabBarActiveTintColor: '#1273DE',
+        tabBarActiveTintColor: '#1273DE',
         tabBarInactiveBackgroundColor: '#7bdcb5',
-        tabBarStyle:{
-            backgroundColor:"#8ed1fc",
-            height:50,
-            marginBottom:30,
-            width:width-40,
-            left:width-375,
-            borderRadius:30,
-
+        tabBarStyle: {
+          backgroundColor: '#8ed1fc',
+          height: 50,
+          marginBottom: 30,
+          width: width - 40,
+          left: width - 375,
+          borderRadius: 30,
         },
       }}>
       <Tab.Screen
@@ -36,7 +34,7 @@ const BottomTabBar = () => {
         options={{
           tabBarIcon: ({color, size}) => (
             <WishIcon name="hands-pray" color={color} size={size} />
-          )
+          ),
         }}
         component={AllWishess}
       />
@@ -49,13 +47,15 @@ const BottomTabBar = () => {
         }}
         component={Login}
       />
-      <Tab.Screen name="Register"
-      options={{
-        tabBarIcon: ({color, size}) => (
-          <User name="user" color={color} size={size} />
-        ),
-      }}
-      component={RegisterForm} />
+      <Tab.Screen
+        name="Register"
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <User name="user" color={color} size={size} />
+          ),
+        }}
+        component={RegisterForm}
+      />
     </Tab.Navigator>
   );
 };
