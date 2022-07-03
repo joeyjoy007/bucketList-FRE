@@ -6,6 +6,7 @@ import Login from '../authForm/Login';
 import RegisterForm from '../authForm/RegisterForm';
 import WishIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import User from 'react-native-vector-icons/Entypo';
+import UserInfo from '../userInfo';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +55,7 @@ const BottomTabBar = () => {
             <User name="user" color={color} size={size} />
           ),
         }}
-        component={RegisterForm}
+        component={UserInfo}
       />
     </Tab.Navigator>
   );
