@@ -11,6 +11,7 @@ import RootStackScreen from '../components/AuthForm/RootStackScreen/RootStackScr
 import {loginUser} from '../server/apis/user';
 import {AuthContext} from '../context';
 import {Storage} from '../storage/Storage';
+import UserWishes from '../components/AuthForm/userInfo/userWishes';
 
 const Routes = () => {
   const Stack = createNativeStackNavigator();
@@ -128,6 +129,7 @@ const Routes = () => {
         {loginState.userToken !== undefined ? (
           <>
             <Stack.Screen name="BottomTabBar" component={BottomTabBar} />
+            <Stack.Screen name="UserWishes" component={UserWishes} />
           </>
         ) : (
           <Stack.Screen name="Auth" component={RootStackScreen} />

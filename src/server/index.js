@@ -24,10 +24,9 @@ export const initializeAxios = async () => {
   if (axios.interceptors.request.handlers.length === 0) {
     axios.interceptors.response.use(
       response => {
-        // console.log("Request completed => ",response)
         return response.data;
       },
-      error => {
+      err => {
         if (isNetworkError(err)) {
           const message = err;
           return Promise.reject({message});

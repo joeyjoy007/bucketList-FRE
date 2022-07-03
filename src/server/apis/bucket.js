@@ -19,6 +19,10 @@ export const fetchBucket = async () => {
   return await bucketAxios.get('/bfetch');
 };
 
+export const fetchBucketForUser = async id => {
+  return await bucketAxios.get(`/bfetchSingleBucket/${id}`);
+};
+
 // export const loginUser = async (data)=>{
 //     return await axios.post('/login',data)
 //     }

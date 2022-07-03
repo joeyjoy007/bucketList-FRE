@@ -7,6 +7,7 @@ import RegisterForm from '../authForm/RegisterForm';
 import WishIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import User from 'react-native-vector-icons/Entypo';
 import UserInfo from '../userInfo';
+import MyActivityIndicator from '../userInfo/Activity';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,15 +20,18 @@ const BottomTabBar = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#1273DE',
-        tabBarInactiveBackgroundColor: '#7bdcb5',
+        // tabBarActiveTintColor: '#1273DE',
+        // tabBarInactiveBackgroundColor: '#7bdcb5',
         tabBarStyle: {
-          backgroundColor: '#8ed1fc',
-          height: 50,
-          marginBottom: 30,
-          width: width - 40,
-          left: width - 375,
-          borderRadius: 30,
+          position: 'absolute',
+          bottom: 15,
+          left: 25,
+          right: 25,
+          backgroundColor: '#ffffff',
+          elevation: 0,
+          height: 70,
+          borderRadius: 15,
+          ...styles.shadow,
         },
       }}>
       <Tab.Screen
@@ -63,4 +67,15 @@ const BottomTabBar = () => {
 
 export default BottomTabBar;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: '#7f5df0',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    opacity: 0.35,
+    shadowRadius: 3.5,
+    elevation: 5,
+  },
+});
