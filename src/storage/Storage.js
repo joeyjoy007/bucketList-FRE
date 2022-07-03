@@ -1,36 +1,33 @@
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-community/async-storage';
 
-export class Storage{
-    static async getItem(key){
+export class Storage {
+  static async getItem(key) {
+    const item = await AsyncStorage.getItem(key);
 
-        const item = await AsyncStorage.getItem(key)
-
-        let data;
-        if(item){
-            try {
-                data = JSON.parse(item)
-            } catch (error) {
-                data = item
-            }
-        }
-        else{
-            data = undefined
-        }
-        return data;
+    let data;
+    if (item) {
+      try {
+        data = JSON.parse(item);
+      } catch (error) {
+        data = item;
+      }
+    } else {
+      data = undefined;
     }
-    static async setItem(key,string){
-        await AsyncStorage.setItem(key , typeof data === "string" ? data : JSON.stringify(data))
-    }
+    return data;
+  }
+  static async setItem(key, data) {
+    await AsyncStorage.setItem(
+      key,
+      typeof data === 'string' ? data : JSON.stringify(data),
+    );
+  }
 
-    static async removeItem(key){
-        await AsyncStorage.removeItem(key)
-    }
-       
-    
-
- 
+  static async removeItem(key) {
+    await AsyncStorage.removeItem(key);
+  }
 }
 
-export const storageItem={
-    TOKEN:'TOKEN'
-}
+export const storageItem = {
+  TOKEN: 'TOKEN',
+};
