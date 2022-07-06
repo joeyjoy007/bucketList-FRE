@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import {Storage} from '../../../storage/Storage';
 import {fetchSingleUser} from '../../../server/apis/user';
 import {fetchBucketForUser} from '../../../server/apis/bucket';
 import MyActivityIndicator from './Activity';
+import {RefreshBucket, RefreshState} from '../../../routes/Routes';
+import {useFocusEffect} from '@react-navigation/native';
 
 const UserInfo = ({navigation}) => {
   const [user, setUser] = useState();
@@ -26,6 +28,14 @@ const UserInfo = ({navigation}) => {
     setUser(userInfo.user);
     // console.log('III=>   ', i.payload);
   };
+
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     fetchBucket();
+  //   }),
+  // );
+  const {refreshState} = useContext(RefreshState);
+  const {refreshBucket} = useContext(RefreshBucket);
 
   const fetchBucket = async () => {
     const userId = await Storage.getItem('userInfo');
@@ -52,7 +62,7 @@ const UserInfo = ({navigation}) => {
   useEffect(() => {
     fetchUser();
     fetchBucket();
-  }, []);
+  }, [refreshBucket, refreshState]);
 
   return (
     <>
@@ -71,7 +81,7 @@ const UserInfo = ({navigation}) => {
             <View>
               <Text style={styles.name}>Wishes</Text>
               <Text style={styles.name}>
-                {user ? user.myWish.length - 1 : '...'}
+                {user ? user.myWish.length : '...'}
               </Text>
             </View>
           </View>

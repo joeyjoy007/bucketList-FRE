@@ -6,16 +6,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {style1} from '../allWishes/wishCss';
 import moment from 'moment';
 import GoBack from 'react-native-vector-icons/AntDesign';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import {updateBucketForFather} from '../../../server/apis/bucket';
+import {Storage} from '../../../storage/Storage';
+import {RefreshBucket} from '../../../routes/Routes';
 
 const UserWishes = ({navigation, route}) => {
   const [data, setData] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [refreshState, setRefreshState] = useState(false);
 
+  const {setRefreshBucket, refreshBucket} = useContext(RefreshBucket);
+  console.log(refreshBucket);
   useEffect(() => {
     setData(
       !route.params.bucketInfo
@@ -24,7 +30,7 @@ const UserWishes = ({navigation, route}) => {
           : route.params.nonActiveData
         : route.params.bucketInfo,
     );
-  }, []);
+  }, [refreshBucket]);
 
   const showAlerts = () => {
     setShowAlert(true);
@@ -34,8 +40,21 @@ const UserWishes = ({navigation, route}) => {
     setShowAlert(false);
   };
 
-  const goToParentForm = () => {
-    navigation.navigate('ParentForm');
+  const addWishToActive = async e => {
+    // navigation.navigate('ParentForm');
+    const fatherId = await Storage.getItem('userInfo');
+    try {
+      updateBucketForFather(e._id, {
+        isActive: true,
+        isDoneBy: fatherId.user._id,
+      });
+
+      setRefreshBucket(!refreshBucket);
+      setRefreshState(true);
+      navigation.navigate('UserInfo');
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -56,7 +75,7 @@ const UserWishes = ({navigation, route}) => {
             <TouchableOpacity
               style={style1.wishView}
               onPress={() => navigation.navigate('WishView')}>
-              <View>
+              <View key={e._id}>
                 <Text style={style1.wishText}>{e.wishName}</Text>
                 <Text style={{fontSize: 10, marginTop: 5}}>
                   Pending{' '}
@@ -70,7 +89,7 @@ const UserWishes = ({navigation, route}) => {
                 {route.params.nonActiveData ? (
                   <TouchableOpacity
                     style={styles.plus}
-                    onPress={() => showAlerts()}>
+                    onPress={() => addWishToActive(e)}>
                     <Text
                       style={{
                         alignSelf: 'center',
@@ -114,7 +133,7 @@ const UserWishes = ({navigation, route}) => {
           hideAlerts();
         }}
         onConfirmPressed={() => {
-          goToParentForm();
+          addWishToActive();
         }}
       />
     </View>

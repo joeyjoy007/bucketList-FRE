@@ -15,6 +15,11 @@ bucketAxios.interceptors.request.use(
   },
 );
 
+export const createBucket = async data => {
+  console.log('BUCKET DATA => ', data);
+  return await bucketAxios.post('/bcreate', data);
+};
+
 export const fetchBucket = async () => {
   return await bucketAxios.get('/bfetch');
 };
@@ -23,10 +28,6 @@ export const fetchBucketForUser = async id => {
   return await bucketAxios.get(`/bfetchSingleBucket/${id}`);
 };
 
-// export const loginUser = async (data)=>{
-//     return await axios.post('/login',data)
-//     }
-
-// export const getUserDetail = async()=>{
-//     return await axios.get('/fetch')
-// }
+export const updateBucketForFather = async (id, data) => {
+  return await bucketAxios.patch(`/updateBucket/${id}`, data);
+};

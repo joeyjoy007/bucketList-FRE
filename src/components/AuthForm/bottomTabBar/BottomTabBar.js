@@ -6,8 +6,10 @@ import Login from '../authForm/Login';
 import RegisterForm from '../authForm/RegisterForm';
 import Bucket from 'react-native-vector-icons/MaterialCommunityIcons';
 import User from 'react-native-vector-icons/Feather';
+import Add from 'react-native-vector-icons/MaterialIcons';
 import UserInfo from '../userInfo';
 import MyActivityIndicator from '../userInfo/Activity';
+import CreateWish from '../createWish/CreateWish';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,16 +46,16 @@ const BottomTabBar = () => {
         component={AllWishess}
       />
       <Tab.Screen
-        name="Login"
+        name="CreateWish"
         options={{
           tabBarIcon: ({color, size}) => (
-            <User name="user" color={color} size={size} />
+            <Add name="add" color={color} size={30} />
           ),
         }}
-        component={Login}
+        component={CreateWish}
       />
       <Tab.Screen
-        name="Register"
+        name="UserInfo"
         options={{
           tabBarIcon: ({color, size}) => (
             <User name="user" color={color} size={size} />

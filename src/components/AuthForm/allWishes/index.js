@@ -6,6 +6,7 @@ import moment from 'moment';
 import {useFocusEffect} from '@react-navigation/native';
 import KK from 'react-native-vector-icons/Entypo';
 import {AuthContext} from '../../../context';
+import {RefreshState} from '../../../routes/Routes';
 
 const AllWishes = ({navigation, route}) => {
   const [bucket, setBucket] = useState([]);
@@ -13,8 +14,11 @@ const AllWishes = ({navigation, route}) => {
   const [allActive, setAllActive] = useState(false);
   const [allInactive, setAllInactive] = useState(false);
 
+  const {refreshState} = useContext(RefreshState);
+
   useFocusEffect(
     React.useCallback(() => {
+      allBucket();
       if (route.name === 'Active') {
         setAllActive(true);
         setAllInactive(false);
@@ -48,7 +52,7 @@ const AllWishes = ({navigation, route}) => {
 
   useEffect(() => {
     allBucket();
-  }, []);
+  }, [refreshState]);
 
   const activeFilter = arr => {
     const filter = arr.filter(elem => elem.isActive === true);
@@ -100,7 +104,7 @@ const AllWishes = ({navigation, route}) => {
         data={allActive ? activeFilter(bucket) : inActiveFilter(bucket)}
         renderItem={renderItem}
         keyExtractor={item => item._id}
-        showsVerticalScrollIndicator={false}
+        // showsVerticalScrollIndicator={false}
       />
       <TouchableOpacity onPress={() => Logout()}>
         <Text>Logout</Text>
